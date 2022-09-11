@@ -113,7 +113,7 @@ public class DealerList extends ArrayList<Dealer> {
             String newAddress = MyTool.getString("Enter Dealer's new address", "Not blank or empty");
             this.get(index).setAddr(newAddress.toUpperCase());
             String newPhone = MyTool.ReadPattern("Enter Dealer's new phone number", "Phone is 9 or 11 digit", Dealer.PHONE_FORMAT);
-            this.get(index).setAddr(newPhone);
+            this.get(index).setPhone(newPhone);
             changed = true;
             if (changed == true) {
                 System.out.println("The dealer's information has been updated successfully");
