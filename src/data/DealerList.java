@@ -15,6 +15,7 @@ public class DealerList extends ArrayList<Dealer> {
 
     private String dataFile = "";
     boolean changed = false;
+    private static final String SEPARATOR = ",";
     List<Dealer> list = new ArrayList<>();
 
     public DealerList() {
@@ -32,7 +33,7 @@ public class DealerList extends ArrayList<Dealer> {
             BufferedReader bf = new BufferedReader(fr);
             String details;
             while ((details = bf.readLine()) != null) {
-                StringTokenizer stk = new StringTokenizer(details, ",");
+                StringTokenizer stk = new StringTokenizer(details, SEPARATOR);
                 String ID = stk.nextToken();
                 String name = stk.nextToken();
                 String address = stk.nextToken();

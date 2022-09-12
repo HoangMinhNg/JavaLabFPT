@@ -1,7 +1,5 @@
 package tools;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileReader;

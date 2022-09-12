@@ -35,7 +35,7 @@ public class LogIn {
             BufferedReader bf = new BufferedReader(fr);
             String details;
             while ((details = bf.readLine()) != null) {
-                StringTokenizer stk = new StringTokenizer(details, ",");
+                StringTokenizer stk = new StringTokenizer(details, SEPARATOR);
                 String accName = stk.nextToken();
                 String password = stk.nextToken();
                 String role = stk.nextToken();
