@@ -11,15 +11,18 @@ import tools.MyTool;
  * @author Hoang Minh Nguyen Van
  */
 public class DealerManagement {
+
     public static void main(String[] args) {
         LogIn login = new LogIn();
         boolean confirm = false;
+        DealerList dList = new DealerList();
+        dList.loadDealerFromFile();
         do {
             Account acc = login.inputAccount();
             boolean checkLogin = login.checkLogin(acc);
             if (checkLogin) {
-                if(acc.getRole().equalsIgnoreCase("ACC-1")){
-                    DealerList dList = new DealerList();
+                if (acc.getRole().equalsIgnoreCase("ACC-1")) {
+
                     int choice;
                     Menu menu = new Menu("Managing dealers: ");
                     menu.addNewOption("     1-Add new dealer.");
@@ -31,10 +34,10 @@ public class DealerManagement {
                     menu.addNewOption("     7-Print Un-continuing dealers.");
                     menu.addNewOption("     8-Write to file");
                     menu.addNewOption("     9-Others.Exit...");
-                    do{
+                    do {
                         menu.printMenu();
                         choice = menu.getChoice();
-                        switch(choice){
+                        switch (choice) {
                             case 1:
                                 dList.addDealer();
                                 break;
@@ -63,8 +66,8 @@ public class DealerManagement {
                                 System.out.println("Bye,bye.See you next time.");
                                 break;
                         }
-                    }while(choice != 9);
-                }else{
+                    } while (choice != 9);
+                } else {
                     System.out.println("Unsupported feature yet");
                 }
             } else {
