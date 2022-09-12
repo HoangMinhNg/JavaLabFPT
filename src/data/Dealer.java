@@ -1,7 +1,5 @@
 package data;
 
-import tools.MyTool;
-
 /**
  *
  * @author Hoang Minh Nguyen Van
@@ -23,15 +21,6 @@ public class Dealer implements Comparable<Dealer> {
         this.addr = addr;
         this.phone = phone;
         this.continuing = continuing;
-    }
-
-    public Dealer(String line) {
-        String[] parts = line.split("" + this.SEPARATOR);
-        ID = parts[0].trim();
-        name = parts[1].trim();
-        addr = parts[2].trim();
-        phone = parts[3].trim();
-        continuing = MyTool.parseBool(parts[4]);
     }
 
     public String getID() {

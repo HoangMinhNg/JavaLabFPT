@@ -24,33 +24,6 @@ public class MyTool {
         return matches;
     }
 
-    public static boolean validPassword(String str, int minLen) {
-        if (str.length() < minLen) {
-            return false;
-        }
-        return str.matches(".*[a-zA-Z]+.*")
-                && str.matches(".*[\\d]+.*")
-                && str.matches(".*[\\W]+.*");
-    }
-
-    public static Date parseDate(String dateStr, String dateFormat) {
-        SimpleDateFormat dF = (SimpleDateFormat) SimpleDateFormat.getInstance();
-        dF.applyPattern(dateFormat);
-        try {
-            long t = dF.parse(dateStr).getTime();
-            return new Date(t);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-
-    public static String dataToStr(Date date, String dateFormat) {
-        SimpleDateFormat dF = (SimpleDateFormat) SimpleDateFormat.getInstance();
-        dF.applyPattern(dateFormat);
-        return dateFormat.formatted(date);
-    }
-
     public static boolean parseBool(String boolStr) {
         char c = boolStr.trim().toUpperCase().charAt(0);
         return (c == '1' || c == 'Y' || c == 'T');
@@ -73,10 +46,10 @@ public class MyTool {
         String input = "";
         boolean valid;
         while (true) {
-            System.out.print(message + ": ");
+            System.out.print(message + " ");
             input = sc.nextLine().trim();
             valid = validStr(input, pattern);
-            if (input.length() == 0 || input.isEmpty()) {
+            if (input.isEmpty()) {
                 System.out.println("Not blank or empty");
             } else if (valid == false) {
                 System.out.println(errorMessage);
@@ -84,17 +57,6 @@ public class MyTool {
                 return input;
             }
         }
-    }
-
-    public static boolean readBool(String message) {
-        String input;
-        System.out.println(message + "[1/0-Y/N-T/F]: ");
-        input = sc.nextLine().trim();
-        if (input.isEmpty()) {
-            return false;
-        }
-        char c = Character.toUpperCase(input.charAt(0));
-        return (c == '1' || c == 'Y' || c == 'T');
     }
 
     public static List<String> readLinesFromFile(String filename) {

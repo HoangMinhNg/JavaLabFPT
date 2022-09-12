@@ -13,15 +13,15 @@ import tools.MyTool;
  */
 public class DealerList extends ArrayList<Dealer> {
 
-    private static final String PHONEPATTERN = "\\d{9}|\\d{11}";
     private String dataFile = "";
     boolean changed = false;
     List<Dealer> list = new ArrayList<>();
+
     public DealerList() {
         initWithFile();
     }
 
-    public void initWithFile() {
+    public final void initWithFile() {
         Config cR = new Config();
         dataFile = cR.getDealerFile();
     }
@@ -37,7 +37,7 @@ public class DealerList extends ArrayList<Dealer> {
                 String name = stk.nextToken();
                 String address = stk.nextToken();
                 String phone = stk.nextToken();
-                boolean continuing = Boolean.parseBoolean(stk.nextToken());
+                boolean continuing = MyTool.parseBool(stk.nextToken());
                 list.add(new Dealer(ID, name, address, phone, continuing));
             }
             bf.close();
@@ -82,11 +82,11 @@ public class DealerList extends ArrayList<Dealer> {
         String ID = MyTool.getString("Enter Dealer's ID to search: ", "Not blank or empty.");
         int index = checkID(ID);
         if (index >= 0) {
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             list.get(index).showInfor();
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
         } else {
             System.out.println("Dealer " + ID + " not found!");
         }
@@ -129,13 +129,13 @@ public class DealerList extends ArrayList<Dealer> {
         if (list.isEmpty()) {
             System.out.println("Empty List!!!");
         } else {
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             for (int i = 0; i < list.size(); i++) {
                 list.get(i).showInfor();
             }
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
         }
     }
 
@@ -143,15 +143,15 @@ public class DealerList extends ArrayList<Dealer> {
         if (list.isEmpty()) {
             System.out.println("List empty. Nothing to print.");
         } else {
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).isContinuing() == true) {
                     list.get(i).showInfor();
                 }
             }
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
         }
     }
 
@@ -159,15 +159,15 @@ public class DealerList extends ArrayList<Dealer> {
         if (list.isEmpty()) {
             System.out.println("List empty.Nothing to print.");
         } else {
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).isContinuing() == false) {
                     list.get(i).showInfor();
                 }
             }
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|----------|----------|--------------------|---------------|----------|");
         }
     }
 

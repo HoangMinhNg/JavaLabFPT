@@ -15,8 +15,8 @@ public class DealerManagement {
     public static void main(String[] args) {
         LogIn login = new LogIn();
         boolean confirm = false;
-        DealerList dList = new DealerList();
-        dList.loadDealerFromFile();
+        DealerList dealerList = new DealerList();
+        dealerList.loadDealerFromFile();
         do {
             Account acc = login.inputAccount();
             boolean checkLogin = login.checkLogin(acc);
@@ -39,28 +39,28 @@ public class DealerManagement {
                         choice = menu.getChoice();
                         switch (choice) {
                             case 1:
-                                dList.addDealer();
+                                dealerList.addDealer();
                                 break;
                             case 2:
-                                dList.searchDealer();
+                                dealerList.searchDealer();
                                 break;
                             case 3:
-                                dList.removeDealer();
+                                dealerList.removeDealer();
                                 break;
                             case 4:
-                                dList.updateDealer();
+                                dealerList.updateDealer();
                                 break;
                             case 5:
-                                dList.printAllDealers();
+                                dealerList.printAllDealers();
                                 break;
                             case 6:
-                                dList.printContinuingDealers();
+                                dealerList.printContinuingDealers();
                                 break;
                             case 7:
-                                dList.printUnContinuingDealers();
+                                dealerList.printUnContinuingDealers();
                                 break;
                             case 8:
-                                dList.writeDealerToFile();
+                                dealerList.writeDealerToFile();
                                 break;
                             case 9:
                                 System.out.println("Bye,bye.See you next time.");

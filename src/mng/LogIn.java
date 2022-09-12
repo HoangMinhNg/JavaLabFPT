@@ -16,7 +16,7 @@ import tools.MyTool;
 public class LogIn {
 
     private String accFile;
-    private static String SEPARATOR = ",";
+    private static final String SEPARATOR = ",";
     private static final ArrayList<Account> listAcc = new ArrayList();
 
     public LogIn() {
@@ -24,12 +24,12 @@ public class LogIn {
         readData();
     }
 
-    public void setupAccFile() {
+    public final void setupAccFile() {
         Config cR = new Config();
         accFile = cR.getAccountFile();
     }
 
-    public void readData() {
+    public final void readData() {
         try {
             FileReader fr = new FileReader(accFile);
             BufferedReader bf = new BufferedReader(fr);
@@ -59,7 +59,7 @@ public class LogIn {
     public boolean checkLogin(Account acc) {
         List<String> lines = MyTool.readLinesFromFile(accFile);
         for (String line : lines) {
-            String[] parts = line.split(this.SEPARATOR);
+            String[] parts = line.split(LogIn.SEPARATOR);
             if (parts.length < 3) {
                 return false;
             }

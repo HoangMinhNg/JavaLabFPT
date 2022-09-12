@@ -1,6 +1,5 @@
 package data;
 
-import java.util.ArrayList;
 import tools.MyTool;
 import java.util.List;
 
@@ -11,8 +10,7 @@ import java.util.List;
 public class AccountChecker {
 
     private String accFile;
-    private static String SEPARATOR = ",";
-    private static final ArrayList<Account> listAcc = new ArrayList();
+    private static final String SEPARATOR = ",";
 
     public AccountChecker() {
         setupAccFile();
