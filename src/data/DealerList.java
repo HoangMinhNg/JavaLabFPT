@@ -96,12 +96,14 @@ public class DealerList extends ArrayList<Dealer> {
     public void removeDealer() {
         String ID = MyTool.getString("Enter Dealer's to remove: ", "Not blank or empty");
         int index = checkID(ID);
-        if (index >= 0) {
+        if (index >= 0 && list.get(index).isContinuing() != false) {
             list.get(index).setContinuing(false);
             System.out.println("Removed!");
             changed = true;
-        } else {
+        } else if (index <= 0) {
             System.out.println("Dealer " + ID + "not found!");
+        }else{
+            System.out.println("Dealer " + ID + "is not continuing");
         }
     }
 
