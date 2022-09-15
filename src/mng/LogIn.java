@@ -1,12 +1,8 @@
 package mng;
 
 import data.Account;
-import data.Config;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import data.AccountChecker;
+import data.DealerList;
 import tools.MyTool;
 
 /**
@@ -15,60 +11,99 @@ import tools.MyTool;
  */
 public class LogIn {
 
-    private String accFile;
+    private Account acc = null;
     private static final String SEPARATOR = ",";
-    private static final ArrayList<Account> listAcc = new ArrayList();
 
-    public LogIn() {
-        setupAccFile();
-        readData();
+    public LogIn(Account acc) {
+        this.acc = acc;
     }
 
-    public final void setupAccFile() {
-        Config cR = new Config();
-        accFile = cR.getAccountFile();
-    }
-
-    public final void readData() {
-        try {
-            FileReader fr = new FileReader(accFile);
-            BufferedReader bf = new BufferedReader(fr);
-            String details;
-            while ((details = bf.readLine()) != null) {
-                StringTokenizer stk = new StringTokenizer(details, SEPARATOR);
-                String accName = stk.nextToken();
-                String password = stk.nextToken();
-                String role = stk.nextToken();
-                listAcc.add(new Account(accName, password, role));
-            }
-            bf.close();
-            fr.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public Account inputAccount() {
+    public static Account inputAccount() {
         String name = MyTool.getString("Your account name: ", "Not blank or empty.Input again.");
         String password = MyTool.getString("Your password: ", "Not blank or empty.Input again.");
         String role = MyTool.getString("Your role: ", "Not blank or empty.Input again.");
-        Account acc = new Account(name, password, role);
-        return acc;
+        Account accIn = new Account(name, password, role);
+        return accIn;
     }
 
-    public boolean checkLogin(Account acc) {
-        List<String> lines = MyTool.readLinesFromFile(accFile);
-        for (String line : lines) {
-            String[] parts = line.split(LogIn.SEPARATOR);
-            if (parts.length < 3) {
-                return false;
-            }
-            if (parts[0].equalsIgnoreCase(acc.getAccName())
-                    && parts[1].equals(acc.getPwd())
-                    && parts[2].equalsIgnoreCase(acc.getRole())) {
-                return true;
-            }
-        }
-        return false;
+    public static void main(String[] args) {
+        Account acc = null;
+        boolean cont = false;
+        boolean confirm = false;
+        boolean valid = false;
+        DealerList dealerList = new DealerList();
+        dealerList.loadDealerFromFile();
+        do {
+            do {
+                AccountChecker accChk = new AccountChecker();
+                acc = inputAccount();
+                valid = accChk.check(acc);
+                if (!valid) {
+                    System.out.println("Incorrect user or password!!!");
+                    cont = MyTool.confirmYesNo("Try again? (Y/N)");
+                }
+                if (!valid && !cont) {
+                    System.exit(0);
+                }
+                if (valid) {
+                    if (acc.getRole().equalsIgnoreCase("ACC-1")) {
+                        int choice;
+                        Menu menu = new Menu("Managing dealers: ");
+                        menu.addNewOption("     1-Add new dealer.");
+                        menu.addNewOption("     2-Search a dealer.");
+                        menu.addNewOption("     3-Remove a dealer.");
+                        menu.addNewOption("     4-Update a dealer.");
+                        menu.addNewOption("     5-Print all dealers.");
+                        menu.addNewOption("     6-Print continuing dealers.");
+                        menu.addNewOption("     7-Print Un-continuing dealers.");
+                        menu.addNewOption("     8-Write to file");
+                        menu.addNewOption("     9-Others.Exit...");
+                        do {
+                            menu.printMenu();
+                            choice = menu.getChoice();
+                            switch (choice) {
+                                case 1:
+                                    dealerList.addDealer();
+                                    break;
+                                case 2:
+                                    dealerList.searchDealer();
+                                    break;
+                                case 3:
+                                    dealerList.removeDealer();
+                                    break;
+                                case 4:
+                                    dealerList.updateDealer();
+                                    break;
+                                case 5:
+                                    dealerList.printAllDealers();
+                                    break;
+                                case 6:
+                                    dealerList.printContinuingDealers();
+                                    break;
+                                case 7:
+                                    dealerList.printUnContinuingDealers();
+                                    break;
+                                case 8:
+                                    dealerList.writeDealerToFile();
+                                    break;
+                                case 9:
+                                    if (dealerList.isChanged() == true) {
+                                        boolean res = MyTool.confirmYesNo("Data is changed. Write to file? (Y/N)");
+                                        if (res == true) {
+                                            dealerList.writeDealerToFile();
+                                        }
+                                    }
+                                    System.out.println("Bye,bye.See you next time.");
+                                    cont = false;
+                                    break;
+                            }
+                        } while (choice != 9);
+                    } else {
+                        System.out.println("Unsupported feature yet");
+                    }
+                }
+            } while (cont);
+            confirm = MyTool.confirmYesNo("Do you want to try again? (Y/N)");
+        } while (confirm);
     }
 }

@@ -11,7 +11,7 @@ import tools.MyTool;
  *
  * @author Nguyen Van Hoang Minh
  */
-public class DealerList extends ArrayList<Dealer> {
+public class DealerList {
 
     private String dataFile = "";
     boolean changed = false;
@@ -31,6 +31,7 @@ public class DealerList extends ArrayList<Dealer> {
         try {
             FileReader fr = new FileReader(dataFile);
             BufferedReader bf = new BufferedReader(fr);
+            
             String details;
             while ((details = bf.readLine()) != null) {
                 StringTokenizer stk = new StringTokenizer(details, SEPARATOR);
@@ -51,6 +52,7 @@ public class DealerList extends ArrayList<Dealer> {
     public void addDealer() {
         String ID;
         int index;
+        
         do {
             ID = MyTool.ReadPattern("ID of new dealer: ", "Wrong.Input again.", Dealer.ID_FORMAT);
             index = checkID(ID);
@@ -58,10 +60,15 @@ public class DealerList extends ArrayList<Dealer> {
                 System.out.println("ID is duplicated.Input again.");
             }
         } while (index >= 0);
+        
         String name = MyTool.getString("Name of new dealer: ", "Not blank or empty.Input again.");
+        
         String address = MyTool.getString("Address of new dealer: ", "Not blank or empty.Input again.");
+        
         String phone = MyTool.ReadPattern("Phone number: ", "Phone is 9 or 11 digit.", Dealer.PHONE_FORMAT);
+        
         boolean continuing = true;
+        
         list.add(new Dealer(ID, name, address, phone, continuing));
         System.out.println("New dealer has been added.");
         changed = true;
@@ -82,6 +89,7 @@ public class DealerList extends ArrayList<Dealer> {
     public void searchDealer() {
         String ID = MyTool.getString("Enter Dealer's ID to search: ", "Not blank or empty.");
         int index = checkID(ID);
+        
         if (index >= 0) {
             System.out.println("|----------|----------|--------------------|---------------|----------|");
             System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
@@ -89,42 +97,48 @@ public class DealerList extends ArrayList<Dealer> {
             list.get(index).showInfor();
             System.out.println("|----------|----------|--------------------|---------------|----------|");
         } else {
-            System.out.println("Dealer " + ID + " not found!");
+            System.out.println("Dealer with ID " + ID.toUpperCase() + " not found!");
         }
     }
 
     public void removeDealer() {
         String ID = MyTool.getString("Enter Dealer's to remove: ", "Not blank or empty");
         int index = checkID(ID);
+        
         if (index >= 0 && list.get(index).isContinuing() != false) {
             list.get(index).setContinuing(false);
             System.out.println("Removed!");
             changed = true;
         } else if (index <= 0) {
-            System.out.println("Dealer " + ID + "not found!");
-        }else{
-            System.out.println("Dealer " + ID + "is not continuing");
+            System.out.println("Dealer " + ID.toUpperCase() + "not found!");
+        } else {
+            System.out.println("Dealer " + ID.toUpperCase() + "is not continuing");
         }
     }
 
     public void updateDealer() {
-        String ID = MyTool.getString("Enter Dealer's ID to updating: ", "Not blank or empty");
+        String ID = MyTool.getString("Enter Dealer's ID to updating: ", "Not blank or empty");        
         int index = checkID(ID);
+        
         if (index >= 0) {
             String newName = MyTool.getString("Enter Dealer's new name: ", "Not blank or empty");
             list.get(index).setName(newName.toUpperCase());
+
             String newAddress = MyTool.getString("Enter Dealer's new address: ", "Not blank or empty");
             list.get(index).setAddr(newAddress.toUpperCase());
+
             String newPhone = MyTool.ReadPattern("Enter Dealer's new phone number: ", "Phone is 9 or 11 digit", Dealer.PHONE_FORMAT);
-            list.get(index).setAddr(newPhone);
+            list.get(index).setPhone(newPhone);
+
             changed = true;
+
             if (changed == true) {
                 System.out.println("The dealer's information has been updated successfully");
             } else {
                 System.out.println("The dealer's information has been updated UNSUCCESSFULLY!!!");
             }
         } else {
-            System.out.println("Dealer " + ID + "not found!");
+            System.out.println("Dealer " + ID.toUpperCase() + "not found!");
         }
     }
 

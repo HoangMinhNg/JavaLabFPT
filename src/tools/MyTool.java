@@ -99,7 +99,7 @@ public class MyTool {
                 number = Integer.parseInt(sc.nextLine());
                 cont = false;
             } catch (Exception e) {
-                System.out.print(welcome);
+                System.out.println("Empty input!!!");
             }
         } while (cont || number > top || number < bot);
         return number;
