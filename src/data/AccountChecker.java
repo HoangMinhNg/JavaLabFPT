@@ -9,7 +9,7 @@ import tools.MyTool;
 
 /**
  *
- * @author Admin
+ * @author Hoang Minh Nguyen Van
  */
 public class AccountChecker {
 
@@ -35,6 +35,7 @@ public class AccountChecker {
             if (parts[0].equalsIgnoreCase(acc.getAccName())
                     && parts[1].equals(acc.getPwd())
                     ) {
+                System.out.println("run true");
                 return true;
             }
         }

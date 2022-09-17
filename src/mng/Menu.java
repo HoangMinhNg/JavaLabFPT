@@ -7,7 +7,7 @@ import tools.MyTool;
  *
  * @author Hoang Minh Nguyen Van
  */
-public class Menu extends ArrayList<String> {
+public class Menu {
 
     private final String menuTitle;
     private final ArrayList<String> optionList = new ArrayList();

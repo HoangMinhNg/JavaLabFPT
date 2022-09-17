@@ -9,14 +9,7 @@ import tools.MyTool;
  *
  * @author Hoang Minh Nguyen Van
  */
-public class LogIn {
-
-    private Account acc = null;
-    private static final String SEPARATOR = ",";
-
-    public LogIn(Account acc) {
-        this.acc = acc;
-    }
+public class LogIn {    
 
     public static Account inputAccount() {
         String name = MyTool.getString("Your account name: ", "Not blank or empty.Input again.");
@@ -27,10 +20,10 @@ public class LogIn {
     }
 
     public static void main(String[] args) {
-        Account acc = null;
         boolean cont = false;
         boolean confirm = false;
         boolean valid = false;
+        Account acc = null;
         DealerList dealerList = new DealerList();
         dealerList.loadDealerFromFile();
         do {
