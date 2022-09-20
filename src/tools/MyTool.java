@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,13 +60,15 @@ public class MyTool {
     public static List<String> readLinesFromFile(String filename) {
         ArrayList<String> list = new ArrayList();
         try {
-            try (FileReader fr = new FileReader(filename); BufferedReader bf = new BufferedReader(fr)) {
-                String details;
-                while ((details = bf.readLine()) != null) {
-                    list.add(details);
-                }
+            FileReader fr = new FileReader(filename);
+            BufferedReader bf = new BufferedReader(fr);
+            String details;
+            while ((details = bf.readLine()) != null) {
+                list.add(details);
             }
-        } catch (IOException e) {
+            bf.close();
+            fr.close();
+        } catch (Exception e) {
             System.out.println(e);
         }
         return list;
@@ -76,26 +77,28 @@ public class MyTool {
     public static void writeFile(String filename, List list) {
         try {
             File f = new File(filename);
-            try (FileWriter fw = new FileWriter(f); PrintWriter pw = new PrintWriter(fw)) {
-                for (int i = 0; i < list.size(); i++) {
-                    pw.print(list.get(i).toString());
-                }
+            FileWriter fw = new FileWriter(f);
+            PrintWriter pw = new PrintWriter(fw);
+            for (int i = 0; i < list.size(); i++) {
+                pw.print(list.get(i).toString());
             }
-        } catch (IOException e) {
+            pw.close();
+            fw.close();
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     public static int inputValue(String welcome, int bot, int top) {
         int number = 0;
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         boolean cont = true;
         do {
             try {
                 System.out.print(welcome);
-                number = Integer.parseInt(scanner.nextLine());
+                number = Integer.parseInt(sc.nextLine());
                 cont = false;
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 System.out.println("Empty input!!!");
             }
         } while (cont || number > top || number < bot);
@@ -105,8 +108,8 @@ public class MyTool {
     public static boolean confirmYesNo(String welcome) {
         boolean result = false;
         System.out.println(welcome);
-        Scanner scanner = new Scanner(System.in);
-        String confirm = scanner.nextLine();
+        Scanner sc = new Scanner(System.in);
+        String confirm = sc.nextLine();
         if ("Y".equalsIgnoreCase(confirm)) {
             result = true;
         }

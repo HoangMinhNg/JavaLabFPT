@@ -31,7 +31,6 @@ public class AccountChecker {
             if (parts[0].equalsIgnoreCase(acc.getAccName())
                     && parts[1].equals(acc.getPwd())
                     ) {
-                System.out.println("run true");
                 return true;
             }
         }

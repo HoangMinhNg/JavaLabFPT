@@ -55,7 +55,7 @@ public class DealerList {
         int index;
         
         do {
-            ID = MyTool.ReadPattern("ID of new dealer: ", "Wrong.Input again.", Dealer.ID_FORMAT);
+            ID = MyTool.ReadPattern("ID of new dealer:", "Wrong.Input again.", Dealer.ID_FORMAT);
             index = checkID(ID);
             if (index >= 0) {
                 System.out.println("ID is duplicated.Input again.");
@@ -66,7 +66,7 @@ public class DealerList {
         
         String address = MyTool.getString("Address of new dealer: ", "Not blank or empty.Input again.");
         
-        String phone = MyTool.ReadPattern("Phone number: ", "Phone is 9 or 11 digit.", Dealer.PHONE_FORMAT);
+        String phone = MyTool.ReadPattern("Phone number:", "Phone is 9 or 11 digit.", Dealer.PHONE_FORMAT);
         
         boolean continuing = true;
         
